@@ -1,0 +1,370 @@
+<html>
+    <head>
+        <style>
+div{
+    background: white;
+    }
+    .header {
+      position: fixed;
+        width: 100%;
+        height: 20px;
+        display: inline-block;
+                padding-top: 8px;
+        padding-left: 8px;
+        padding-bottom: 8px;
+        border-bottom-width: 1px;
+        padding-right: 8px;
+        border-bottom-style: solid;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+    }
+    .bouton {
+	border-radius:12px 0 12px 0;
+	background: #478bf9;
+	border:none;
+	color:#fff;
+	font: 14px Verdana;
+	padding:4px 0 4px 0;
+	    text-align: center;
+    }
+    .content{
+    padding-top: 30px;
+
+    }
+    .navigator div{
+        float: left;
+        width: 100px;
+        }
+    div .graph{
+        float: left;
+        /*//width: 50%;*/
+        height: 50%;
+    }
+    div .mainfold{
+
+        width: 50%;
+
+    }
+     .mainfold img {
+        max-width:100%;
+        max-height:100%;
+    }
+
+
+     div .historyscore{
+        float: left;
+        width: 50%;
+
+    }
+    .historyscore img {
+        max-width:100%;
+        max-height:100%;
+    }
+
+    div .histokm{
+
+        width: 50%;
+
+    }
+     .histokm img {
+        max-width:100%;
+        max-height:100%;
+    }
+
+    div .winnerscores{
+
+        width: 50%;
+
+    }
+    .winnerscores img {
+        max-width:80%;
+        max-height:100%;
+    }
+    .winners{
+        display: inline-block;
+    }
+    .winner{
+        float: left;
+        width: 50%;
+        height: 50%;
+    }
+    .winnerright{
+        float: right;
+    }
+    .winner img{
+        max-width:100%;
+        max-height:100%;
+    }
+    .hide{
+        visibility: hidden;
+    }
+
+    .link { cursor: pointer; }
+    .highcharts-scatter-series{opacity: 0.75;}
+    .highcharts-credits{display:none}
+
+        </style>
+        <script src="../Highcharts-6.0.4/code/highcharts.js"></script>
+        <script src="../Highcharts-6.0.4/code/js/modules/exporting.js"></script>
+        <script src="../Highcharts-6.0.4/code/js/modules/export-data.js"></script>
+        <script src="../Highcharts-6.0.4/code/js/modules/accessibility.js"></script>
+        <script src="../Highcharts-6.0.4/code/js/modules/boost.js"></script>
+
+        <script type="text/javascript" src="datahtml.json"></script>
+        <script type="text/javascript" src="fig/historyscore.json"></script>
+        <script type="text/javascript" src="fig/sortwinnerscore.json"></script>
+        <script type="text/javascript" src="fig/explokmerall0.json"></script>
+        <script type="text/javascript" src="fig/explokmerwinners0.json"></script>
+        <script type="text/javascript" src="fig/explokmerwinners0.8.json"></script>
+
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_1.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_2.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_3.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_4.json"></script>
+        <script type="text/javascript" src="fig/countkmerwin0.txt_SampleMat.csv.json"></script>
+
+        <script>
+            window.onload=function(){
+                for(var i=0;i<g.length;i++){g[i].reflow();}
+            }
+        </script>
+
+    </head>
+    <body>
+    <!--onload="updatecounter();">-->
+        <div class="header">
+            <div class="navigator">
+                <a href="../evolution.html">
+                    <div class="bouton summary">evolution</div>
+                </a>
+                <div id="prevlink" class="prev link" onclick="location.href=datajson.prevlink"><</div>
+                <div class="counter" id="counter" >Loading...</div>
+                <div id="nextlink" class="next link" onclick="location.href=datajson.nextlink">></div>
+            <!--onload="updatecounter();-->
+        <script>
+            function updatecounter(){
+                console.log("updatecounter")
+                var element = document.getElementById("counter");
+                element.innerHTML=datajson.currentnb+'/'+ datajson.maxfolder
+                if (datajson.currentnb== datajson.maxfolder){
+                    var d = document.getElementById("nextlink");
+                    d.className += " hide";
+                }
+                if (datajson.currentnb== 1){
+                    var d = document.getElementById("prevlink");
+                    d.className += " hide";
+                }
+
+            }
+            updatecounter()
+        </script>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="content">
+            <div class="resglobal">
+                <div id="mainfold" class="graph mainfold">
+                    <!-- <img src="fig/countkmer_tresholdwin0.txt_SampleMat.csvMainfoldNeig30.png"/> -->
+                </div>
+                <div id='explo' class="graph histokm">
+                    <!--<img src="fig/histokmerall.png"/>-->
+                    <!--<div style="width: 20%;  float:  right;">-->
+                    <!--<object data="fig/feature_distriball0.txt"></object>-->
+                    <!--</div>-->
+                </div>
+
+
+                <div id="historyscore" class="graph historyscore">
+                    <!--<img src="fig/historyscore.png"/>-->
+                </div>
+
+                <div id= "sortwinnerscores" class="graph winnerscores">
+                    <!--<img src="fig/winnerScores.png"/>-->
+                </div>
+            </div>
+            <script>
+             seriesconfig={
+                chart: {
+                    type: 'line',
+                    zoomType: 'x'
+                },
+                options:{ exporting:true  },
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                },
+                title: {    text: winhistoricmean.title   },
+                subtitle: {   text: winhistoricmean.subtitle  },
+                tooltip: {
+                    shared: true,
+                    crosshairs: true,
+                    valueDecimals:2
+                },
+                xAxis: { tickAmount:5, categories: winhistoricmean.categories },
+                yAxis:{title: { text: winhistoricmean.ylabel}},
+                series:winhistoricmean.series
+            }
+            var g=[];
+            g.push(Highcharts.chart('historyscore',seriesconfig));
+
+            seriesconfig.title.text=sortwin.title
+            seriesconfig.subtitle.text=sortwin.subtitle
+            seriesconfig.series=sortwin.series
+            seriesconfig.xAxis.categories=sortwin.categories
+            seriesconfig.xAxis.categories=undefined
+            seriesconfig.xAxis.tickAmount=10
+            seriesconfig.yAxis.title.text=sortwin.ylabel
+            g.push(Highcharts.chart('sortwinnerscores',seriesconfig));
+
+            seriesconfig.title.text=all0explo.title
+            seriesconfig.subtitle.text="All "+all0explo.subtitle+"<br/>Winners "+winners0explo.subtitle+"<br/>Winners, outter score>0.8 "+winners08explo.subtitle
+            seriesconfig.series=all0explo.series
+            seriesconfig.series.push(winners0explo.series[0])
+            seriesconfig.series.push(winners08explo.series[0])
+            seriesconfig.yAxis.title.text=all0explo.ylabel
+            seriesconfig.xAxis.categories=undefined
+            seriesconfig.xAxis.tickAmount=10
+            g.push(Highcharts.chart('explo',seriesconfig));
+
+
+
+
+
+            </script>
+            <div class="winners">
+                <div id="winner1" class="winner winner1">
+                    <!--<img src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_1MainfoldNeig30.png"/>-->
+
+                </div>
+                <div id="winner2" class="winner winnerright">
+                    <!--<img src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_2MainfoldNeig30.png"/>-->
+                </div>
+                <div id="winner3" class="winner winner3">
+                    <!--<img src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_3MainfoldNeig30.png"/>-->
+                </div>
+                <div id="winner4" class="winner winnerright">
+                    <!--<img src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_4MainfoldNeig30.png"/>-->
+                </div>
+
+<script>
+scatterconf={
+    chart: {
+        // borderColor: '#0B0B0B',
+
+        plotBorderWidth: 1,
+
+        type: 'scatter',
+        zoomType: 'xy'
+    },
+    title: {
+        text: mainfoldorga1.title
+    },
+    subtitle: {
+        text: mainfoldorga1.subtitle
+    },
+    legend: {
+        borderRadius: 5,
+        borderWidth: 1,
+        align: 'right',
+        verticalAlign: 'top',
+        layout: 'vertical',
+        x: 0,
+        y: 50
+    },
+    xAxis: {
+        startOnTick: false,
+        endOnTick: false,
+        showLastLabel: false,
+        minPadding: 0.1,
+        maxPadding: 0.15,
+        visible:false,
+        tickAmount: 0,
+        title: {
+            enabled: false
+
+        }
+
+    },
+    yAxis: {
+        visible:false,
+        title: {
+            enabled: false
+        }
+    },
+
+    plotOptions:{
+        scatter: {
+            cropThreshold:5000,
+            marker: {
+                radius: 4,
+
+                states: {
+                    hover: {
+                        enabled: true,
+                        lineColor: 'rgb(100,100,100)',
+
+                    }
+                }
+            },
+            states: {
+                hover: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br>',
+                pointFormat: ''//,{point.x} , {point.y} ',
+                //valueDecimals: 2
+            }
+        }
+    },
+    series: mainfoldorga1.data
+}
+
+    g.push(Highcharts.chart('winner1', scatterconf));
+    scatterconf.title.text= mainfoldorga2.title
+    scatterconf.subtitle.text= mainfoldorga2.subtitle
+    scatterconf.series = mainfoldorga2.data
+    g.push(Highcharts.chart('winner2', scatterconf));
+
+    scatterconf.title.text= mainfoldorga3.title
+    scatterconf.subtitle.text= mainfoldorga3.subtitle
+    scatterconf.series = mainfoldorga3.data
+    g.push(Highcharts.chart('winner3', scatterconf));
+
+    scatterconf.title.text= mainfoldorga4.title
+    scatterconf.subtitle.text= mainfoldorga4.subtitle
+    scatterconf.series = mainfoldorga4.data
+    g.push(Highcharts.chart('winner4', scatterconf));
+
+    scatterconf.title.text= mainfoldorga0.title
+    scatterconf.subtitle.text= mainfoldorga0.subtitle
+    scatterconf.series = mainfoldorga0.data
+    g.push(Highcharts.chart('mainfold', scatterconf));
+    </script>
+            </div>
+                <a href="TSNEbest10.html">
+                    <div class="bouton summary">More organism TSNE</div>
+                </a>
+        </div>
+
+    </body>
+
+</html>

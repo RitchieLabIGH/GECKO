@@ -1,0 +1,287 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+        <style>
+div{
+    background: white;
+    }
+    .header {
+      position: fixed;
+        width: 100%;
+        height: 20px;
+        display: inline-block;
+                padding-top: 8px;
+        padding-left: 8px;
+        padding-bottom: 8px;
+        border-bottom-width: 1px;
+        padding-right: 8px;
+        border-bottom-style: solid;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+    }
+    .bouton {
+	border-radius:12px 0 12px 0;
+	background: #478bf9;
+	border:none;
+	color:#fff;
+	font: 14px Verdana;
+	padding:4px 0 4px 0;
+	    text-align: center;
+    }
+    .content{
+    padding-top: 30px;
+
+    }
+    .navigator div{
+        float: left;
+        width: 100px;
+        }
+    div .graph{
+        float: left;
+        /*//width: 50%;*/
+        height: 50%;
+    }
+    div .mainfold{
+
+        width: 50%;
+
+    }
+     .mainfold img {
+        max-width:100%;
+        max-height:100%;
+    }
+
+
+     div .historyscore{
+        float: left;
+        width: 50%;
+
+    }
+    .historyscore img {
+        max-width:100%;
+        max-height:100%;
+    }
+
+    div .histokm{
+
+        width: 50%;
+
+    }
+     .histokm img {
+        max-width:100%;
+        max-height:100%;
+    }
+
+    div .winnerscores{
+
+        width: 50%;
+
+    }
+    .winnerscores img {
+        max-width:80%;
+        max-height:100%;
+    }
+    .winners{
+        display: inline-block;
+    }
+    .winner{
+        float: left;
+        width: 50%;
+        height: 50%;
+    }
+    .winnerright{
+        float: right;
+    }
+    .winner img{
+        max-width:100%;
+        max-height:100%;
+    }
+    .hide{
+        visibility: hidden;
+    }
+
+    .link { cursor: pointer; }
+    .highcharts-scatter-series{opacity: 0.75;}
+    .highcharts-credits{display:none}
+
+        </style>
+		<script src="../Highcharts-6.0.4/code/highcharts.js"></script>
+        <script src="../Highcharts-6.0.4/code/js/modules/exporting.js"></script>
+        <script src="../Highcharts-6.0.4/code/js/modules/export-data.js"></script>
+        <script src="../Highcharts-6.0.4/code/js/modules/accessibility.js"></script>
+        <script src="../Highcharts-6.0.4/code/js/modules/boost.js"></script>
+
+
+        <script type="text/javascript" src="datahtml.json"></script>
+
+		<script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_1.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_2.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_3.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_4.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_5.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_6.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_7.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_8.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_9.json"></script>
+        <script type="text/javascript" src="fig/BestIndiv10.csvforextractkm.count_SampleMat.csv_orga_10.json"></script>
+ 
+
+
+
+        <script>
+            window.onload=function(){
+                for(var i=0;i<g.length;i++){g[i].reflow();}
+            }
+        </script>
+
+    </head>
+    <body>
+
+        <div class="content">
+
+            <div class="winners">
+                <div id="winner1" class="winner winner1"></div>
+                <div id="winner2" class="winner winner2"></div>
+                <div id="winner3" class="winner winner3"></div>
+                <div id="winner4" class="winner winner4"></div>
+                <div id="winner5" class="winner winner5"></div>
+                <div id="winner6" class="winner winner6"></div>
+                <div id="winner7" class="winner winner7"></div>
+                <div id="winner8" class="winner winner8"></div>
+                <div id="winner9" class="winner winner9"></div>
+                <div id="winner10" class="winner winner10"></div>
+
+
+<script>
+var g=[];
+scatterconf={
+    chart: {
+        // borderColor: '#0B0B0B',
+
+        plotBorderWidth: 1,
+
+        type: 'scatter',
+        zoomType: 'xy'
+    },
+    title: {
+        text: mainfoldorga1.title
+    },
+    subtitle: {
+        text: mainfoldorga1.subtitle
+    },
+    legend: {
+        borderRadius: 5,
+        borderWidth: 1,
+        align: 'right',
+        verticalAlign: 'top',
+        layout: 'vertical',
+        x: 0,
+        y: 50
+    },
+    xAxis: {
+        startOnTick: false,
+        endOnTick: false,
+        showLastLabel: false,
+        minPadding: 0.1,
+        maxPadding: 0.15,
+        visible:false,
+        tickAmount: 0,
+        title: {
+            enabled: false
+
+        }
+
+    },
+    yAxis: {
+        visible:false,
+        title: {
+            enabled: false
+        }
+    },
+
+    plotOptions:{
+        scatter: {
+            cropThreshold:5000,
+            marker: {
+                radius: 4,
+
+                states: {
+                    hover: {
+                        enabled: true,
+                        lineColor: 'rgb(100,100,100)',
+
+                    }
+                }
+            },
+            states: {
+                hover: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br>',
+                pointFormat: ''//,{point.x} , {point.y} ',
+                //valueDecimals: 2
+            }
+        }
+    },
+    series: mainfoldorga1.data
+}
+
+    g.push(Highcharts.chart('winner1', scatterconf));
+    scatterconf.title.text= mainfoldorga2.title
+    scatterconf.subtitle.text= mainfoldorga2.subtitle
+    scatterconf.series = mainfoldorga2.data
+    g.push(Highcharts.chart('winner2', scatterconf));
+
+    scatterconf.title.text= mainfoldorga3.title
+    scatterconf.subtitle.text= mainfoldorga3.subtitle
+    scatterconf.series = mainfoldorga3.data
+    g.push(Highcharts.chart('winner3', scatterconf));
+
+    scatterconf.title.text= mainfoldorga4.title
+    scatterconf.subtitle.text= mainfoldorga4.subtitle
+    scatterconf.series = mainfoldorga4.data
+    g.push(Highcharts.chart('winner4', scatterconf));
+    
+        scatterconf.title.text= mainfoldorga5.title
+    scatterconf.subtitle.text= mainfoldorga5.subtitle
+    scatterconf.series = mainfoldorga5.data
+    g.push(Highcharts.chart('winner5', scatterconf));
+
+    scatterconf.title.text= mainfoldorga6.title
+    scatterconf.subtitle.text= mainfoldorga6.subtitle
+    scatterconf.series = mainfoldorga6.data
+    g.push(Highcharts.chart('winner6', scatterconf));
+        scatterconf.title.text= mainfoldorga7.title
+    scatterconf.subtitle.text= mainfoldorga7.subtitle
+    scatterconf.series = mainfoldorga7.data
+    g.push(Highcharts.chart('winner7', scatterconf));
+
+    scatterconf.title.text= mainfoldorga8.title
+    scatterconf.subtitle.text= mainfoldorga8.subtitle
+    scatterconf.series = mainfoldorga8.data
+    g.push(Highcharts.chart('winner8', scatterconf));
+    
+    scatterconf.title.text= mainfoldorga9.title
+    scatterconf.subtitle.text= mainfoldorga9.subtitle
+    scatterconf.series = mainfoldorga9.data
+    g.push(Highcharts.chart('winner9', scatterconf));
+
+    scatterconf.title.text= mainfoldorga10.title
+    scatterconf.subtitle.text= mainfoldorga10.subtitle
+    scatterconf.series = mainfoldorga10.data
+    g.push(Highcharts.chart('winner10', scatterconf));
+
+
+    </script>
+            </div>
+
+        </div>
+
+    
+
+
+</body></html>

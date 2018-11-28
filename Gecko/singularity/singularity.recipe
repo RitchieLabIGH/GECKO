@@ -1,0 +1,26 @@
+Bootstrap: localimage
+
+From: ./GECKO_base_img
+
+%files
+
+   ../algoGen /GECKO
+
+%labels
+
+   Version v0.1
+
+
+%post
+	
+	cd /GECKO/Producteurv2/utils
+	chmod +x ./compile.sh
+	./compile.sh
+	cd ..
+	make clean
+	make
+	
+
+
+
+	

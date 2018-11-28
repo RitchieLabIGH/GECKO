@@ -1,0 +1,201 @@
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- including ECharts file -->
+    <!--<script src="echarts.min.js"></script>-->
+
+    <script src="Highcharts-6.0.4/code/highcharts.js"></script>
+    <script src="Highcharts-6.0.4/code/js/modules/exporting.js"></script>
+    <script src="Highcharts-6.0.4/code/js/modules/export-data.js"></script>
+    <script src="Highcharts-6.0.4/code/js/modules/accessibility.js"></script>
+    <script src="Highcharts-6.0.4/code/js/modules/boost.js"></script>
+
+
+
+    <script type="text/javascript" src="0_1/datahtml.json"></script>
+    <script type="text/javascript" src="countkmerwin0.txt_SampleMat.csvMainfoldNeig30.txt.json" ></script>
+
+    <style>
+
+div{
+    background: white;
+    }
+    .header {
+      position: fixed;
+        width: 100%;
+        height: 20px;
+        display: inline-block;
+                padding-top: 8px;
+        padding-left: 8px;
+        padding-bottom: 8px;
+        border-bottom-width: 1px;
+        padding-right: 8px;
+        border-bottom-style: solid;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+    }
+        .content{
+        padding-top: 30px;
+
+    }
+    .navigator div{
+        float: left;
+        width: 100px;
+        }
+    div .graph{
+        float: left;
+        //width: 50%;
+        height: 50%;
+    }
+    div .conf{
+        float: left;
+        width: 30%;
+
+    }
+    img {
+        max-width:100%;
+        max-height:100%;
+    }
+
+    div .histoorga{
+float: right;
+        width: 70%;
+    height: 100%;
+
+
+    }
+     .histoorga img {
+        max-width:100%;
+            height: 100%;
+        max-height:100%;
+    }
+.bouton {
+	border-radius:12px 0 12px 0;
+	background: #478bf9;
+	border:none;
+	color:#fff;
+	font: 14px Verdana;
+	padding:4px 0 4px 0;
+	    text-align: center;
+}
+
+
+
+
+    </style>
+
+</head>
+<body>
+<div class="header">
+    <div class="navigator">
+        <a id="lnres" href="0_1/scratch.html"><div class="bouton summary" >results</div></a>
+        <script>
+            var d = document.getElementById("lnres");
+            d.href = "0_"+datajson.maxfolder+"/scratch.html"
+
+</script>
+        <!-- <div class="prev"><</div>-->
+        <!--<div class="counter">x/17</div>-->
+        <!--<div class="next">></div>&ndash;&gt;-->
+    </div>
+
+
+</div>
+
+
+<div class="content">
+    <div class="resglobal">
+        <div class="txt conf">
+            Configuration file :
+            <object style="width: 100%;height: 100%;" data="multigenerated.conf"></object>
+
+        </div>
+        <div class="histoorga">
+            <img src="scores_heatmapcompare.png"/>
+
+
+        </div>
+        <div class="kmerOcc">
+            <img src="kmerOccurencesInWinners.png"/>
+
+
+        </div>
+
+
+    </div>
+    <div>
+    <div style="width: 50%;"><select id="select_feature" onchange="loadgraph();"></select></div>
+    <div id="graphtst" style="width: 50%;height:50%;"/>
+    </div>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+
+        select=document.getElementById('select_feature');
+        for(i=0;i<data.index.length;i++){
+            var option = document.createElement("option");
+            option.text = data.index[i];
+            select.add(option);
+        }
+        var selfeature = 13;
+        select.selectedIndex = selfeature
+
+        function loadgraph(){
+            var sel=document.getElementById('select_feature')
+            var selfeat=sel.selectedIndex
+            // specify chart configuration item and data
+            Highcharts.chart('graphtst', {
+                options:{
+                    exporting:true
+                },
+                responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            },
+
+                title: {
+                    text: data.index[selfeat]
+                },
+/*
+                subtitle: {
+                    text: 'When resizing the window or the frame, the chart should resize'
+                },
+*/
+
+                xAxis: {
+                    categories: data.columns
+                },
+
+                series: [{
+                    name: data.index[selfeat],
+                    data: data.data[selfeat]
+                    },{
+                    name: data.index[selfeat+1],
+                    data: data.data[selfeat+1]
+                    },{
+                    name: data.index[selfeat+2],
+                    data: data.data[selfeat+2]
+                }]
+            });
+        }
+        loadgraph()
+
+    </script>
+</body>
+</html>

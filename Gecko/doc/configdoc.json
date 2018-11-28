@@ -1,0 +1,284 @@
+doc=
+{
+  "GAparams":
+  {
+    "type":"section",
+    "description":"Genetic algorithm parameters",
+  },
+"pathData":
+  {
+    "type":"list",
+    "default":"",
+    "description":"Path to the count matrix of kmer",
+  },
+  "AlgorithmType":
+  {
+    "type":"checklist",
+    "values":{"IAGA":"IAGA : improve adaptive genetic algorithm","AGA":"AGA : adaptive genetic algorithm","GA":" GA : fixed translocation and mutation rate"},
+    "default":"IAGA",
+    "description":"Type of genetic algorithm",
+    
+    "recommand":"Recommended value : IAGA"
+  },
+  "ReplicatsIDs":
+  {
+    "type":"list",
+    "default":1,
+    "description":"Set an id for each replicat you want. Add new input for each replicats, each replicat need to have a different id",
+    "extDescription":"Replicats will run the same GA configuration for each of the IDs presented  ",
+    "recommand":"Recommended values (for 4 replicats) : 1,2,3,4",
+    "pattern":"[0-9]*"
+  },
+   "Generation":
+  {
+    "type":"list",
+    "default":1000,
+    "description":"Number of generations until the AGA stops, more generations will improve the search and exploration at the cost of more time. This value is highly dependent on the number of kmers to explore.",
+    "extDescription":"Whole exome or genome experiments require more generations, small RNA experiments where the number of possible k-mers is small require less generations.",
+    "recommand":"Recommended values : {1000..50000}",
+    "pattern":"[0-9]*"
+  },
+  "Individuals":
+  {
+    "type":"list",
+    "default":600,
+    "description":"Number of individuals per generation",
+    "extDescription":"A too small population size may prevent the AGA from reaching a good fitness. Above the optimal population size, the fitness will stop increasing and the computational resources to reach the same level will increase.",
+    "recommand":"Recommended values : {100..900}",
+    "pattern":"[0-9]*"
+  },
+    "Elite":
+  {
+    "type":"list",
+    "default":2,
+    "description":"Number of individuals who will stay untouched at each generation.",
+    "extDescription":"Larger elite sizes will allow good solutions to propagate more and thus increase convergence speed at the cost of searching broader sets of solutions.",
+    "recommand":"Recommended values : {0..5}",
+     "pattern":"[0-9]*"
+
+  },
+      "killRatio":
+  {
+    "type":"list",
+    "default":0.4,
+    "description":"Ratio of individuals removed and randomly replaced at each generation. The individuals with the lowest fitness will be deleted.",
+    "extDescription":"High values favor exploration but will reduce the capacity to converge to a solution.",
+    "recommand":"Recommended values : {0.1..0.5}",
+     "pattern":"0[/.]{0,1}[0-9]*"
+
+  },
+  "Mutationmode_1kmeronly":
+  {
+    "type":"checklist",
+    "values":{"0":"No","1":"Yes"},
+    "default":"0",
+    "description":"Historic parameter. Only 1 kmer will be mutated per individual if set to Yes",
+    
+    "recommand":"Recommended value : No"
+  },
+  
+       "mutationRate1":
+  {
+    "type":"list",
+    "default":0.5,
+    "description":"This is the mutation rate for individuals with the lower fitness (k1).",
+    "extDescription":"Historic: for a non-adaptive GA this is the mutation rate.",
+    "recommand":"Recommended values : {0.3..0.7}",
+     "pattern":"0[/.]{0,1}[0-9]*"
+
+  },
+        "mutationRate2":
+  {
+    "type":"list",
+    "default":0.1,
+    "description":"This is the mutation rate for individuals with average fitness  (k2).",
+    
+    "recommand":"Recommended values :{0.05..0.2}",
+     "pattern":"0[/.]{0,1}[0-9]*"
+
+  },
+        "mutationRate3":
+  {
+    "type":"list",
+    "default":0.01,
+    "description":"This is the mutation rate for individuals with the best fitness  (k3).",
+    
+    "recommand":"Recommended values : {0..0.01}",
+     "pattern":"0[/.]{0,1}[0-9]*"
+
+  },
+         "TranslocationRate1":
+  {
+    "type":"list",
+    "default":0.8,
+    "description":"This is the translocation (or cross-over) rate for individuals with lower fitness (k1).",
+    "extDescription":"Historic: for a non-adaptive GA this is the translocation rate.",
+    "recommand":"Recommended values : {0.2..0.8}",
+     "pattern":"0[/.]{0,1}[0-9]*"
+
+  },
+        "TranslocationRate2":
+  {
+    "type":"list",
+    "default":0.4,
+    "description":"This is the translocation (or cross-over) rate for individuals with average fitness (k2).",
+    
+    "recommand":"Recommended values :{0.3..0.5}",
+     "pattern":"0[/.]{0,1}[0-9]*"
+
+  },
+        "TranslocationRate3":
+  {
+    "type":"list",
+    "default":0.7,
+    "description":"This is the translocation (or cross-over) rate for individuals with the best fitness (k3).",
+    
+    "recommand":"Recommended values : {0.2..0.8}",
+     "pattern":"0[/.]{0,1}[0-9]*"
+
+  },
+  
+          "kselection":
+  {
+    "type":"list",
+    "default":50,
+    "description":"Number of individuals randomly selected to give their k-mers to another individual selected for cross-over; only the one with the best fitness will give its k-mers.",
+    "extDescription":"This parameter has a high impact on AGA convergence . High Kselection pushes to stronger convergence but less exploration.",
+    "recommand":"Recommended values : {10..100} ( or put differently {5%..20%} of  population size : Individuals)",
+     "pattern":"[0-9]*"
+
+  },
+          "outterRate":
+  {
+    "type":"list",
+    "default":0.17,
+    "description":"ratio of samples used to test the accuracy of GECKO (this is the ratio of the category with the least samples).",
+    "extDescription":"Larger numbers give better information on the generalisation capacity but limit the number of samples used during the AGA.",
+    "recommand":"Recommended values :  {0.1..0.3}",
+     "pattern":"0[/.]{0,1}[0-9]*"
+
+  },
+          "testRate":
+  {
+    "type":"list",
+    "default":0.3,
+    "description":"Ratio of inner samples (based on the smallest category number of sample).",
+    "extDescription":"Larger numbers give more robust fitness scores but limit the number of samples used for learning. For small datasets this can to under learning.",
+    "recommand":"Recommended values : {0.2..0.4}",
+     "pattern":"0[/.]{0,1}[0-9]*"
+
+  },
+            "scoreMaxThreshold":
+  {
+    "type":"list",
+    "default":1.1,
+    "description":"Stop the AGA when an individual reaches this fitness (before the number of maximum generations. Set above 1 to avoid premature stop .",
+    
+    "recommand":"Recommended values : {1.1}",
+     "pattern":"[/.0-9]*"
+
+  },
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    "MLparams":
+  {
+    "type":"section",
+    "description":"Machine learning parameters",
+  },
+              "Kmer":
+  {
+    "type":"list",
+    "default":30,
+    "description":"Number of kmer by individual ",
+    "extDescription":"Smaller numbers may lead to smaller accuracy scores but allow for small classifiers.",
+    "recommand":"Recommended values : {3..100}",
+     "pattern":"[0-9]*"
+
+  },
+   "Method":
+  {
+    "type":"checklist",
+    "values":{"linSVC":"linSVC : Linear Support Vector Classification.","MLP":"MLP : neural network","ADA":"ADA :  AdaBoost classifier","SDG":"SDG : Linear classifiers (SVM, logistic regression, a.o.) with SGD training","SVC":"SVC : C-Support Vector Classification","KNEIG":"KNEIG : Classifier implementing the k-nearest neighbors vote.","SVMfourier":"SVMfourier : Support Vector Classification with fourier approximation kernel","SVMnystro":"SVMnystro : Support Vector Classification with Nystroem approximation kernel"},
+    "default":"linSVC",
+    "description":"Method of machine learning to be use",
+    
+    "recommand":"Recommended values “linSVC” due to its speed and good generalization for small datasets"
+  },
+  "hiddenNeuron":
+{
+    "type":"list",
+    "default":10,
+    "description":"Number of hidden neurons for MLP ( neural network)",
+    
+    "recommand":"Recommended values : {number of Kmer/2 .. number categories}",
+     "pattern":"[0-9]*"
+
+  },
+   "shufTrainTestDataType":
+  {
+    "type":"checklist",
+    "values":{"1":"add noise : mode to add noise (see noisefactor below)","2":"artificially triple the matrix samples and add noise (not recommended)","3":"no noise"},
+    "default":"1",
+    "description":"Test/train method ",
+    
+    "recommand":"Recommended values 'add noise'"
+  },
+    "noisefactor":
+{
+    "type":"list",
+    "default":1,
+    "description":"Multiplication factor applied to the standard deviation of a sample to add noise to the k-mer counts.",
+    "extDescription":"This parameter is useful for datasets with a small number of samples to avoid overfitting.",
+    "recommand":"Recommended values : {0.5..1.5}",
+     "pattern":"[/.0-9]*"
+
+  },
+      "nRotativeTest":
+{
+    "type":"list",
+    "default":4,
+    "description":"Number of rotations performed on the train/test set to determine accuracy for each individual.",
+    "extDescription":"More homogeneous datasets require less rotations. More rotations will give a fitness score that is more representative of each individuals capacity to classify data but will increase the computational time",
+    "recommand":"Recommended values : {2..6}",
+     "pattern":"[/.0-9]*"
+
+  },
+  ////////////////////////////////////////////////////////////////////////////////////
+     "logconfig":
+  {
+    "type":"section",
+    "description":"Log configuration",
+  },
+  "pathLog":
+  {
+    "type":"list",
+    "default":"",
+    "description":"path to the directory to save data results. In case of parameters with multiple values the directory will be extended with the first 2 letters of the parameter and the value corresponding to the AGA run. The pathLog is also automatically extend with 'Dir'",
+  },
+ "allResultHistoryBOOL":
+  {
+    "type":"checklist",
+    "values":{"0":"No","1":"Yes"},
+    "default":"1",
+    "description":"Save or not the fitness score of all individuals at each generation in a file",
+    "recommand":"Recommended value : Yes"
+  },
+   "computeAllOutters":
+  {
+    "type":"checklist",
+    "values":{"0":"No","1":"Yes"},
+    "default":"1",
+    "description":"Save the outer score of all individuals at each generation in a file, it require more computational time at each generation. Set to NO, only the outer score of the winner of each generation will be compute.",
+    
+    "recommand":"Recommended value : Yes"
+  },
+   "generationRefreshLog":
+{
+    "type":"list",
+    "default":20000,
+    "description":"Intervals at which the AGA results will be saved.",
+    "extDescription":"This allows users to see the evolution of the AGA solutions. At each checkpoint a numbered folder will be created with all results. Setting this interval too low will drastically increase the size of the result directory and run time.",
+    "recommand":"Recommended values : {Generation/5 .. Generation}",
+     "pattern":"[0-9]*"
+
+  },
+}

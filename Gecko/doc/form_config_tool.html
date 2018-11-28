@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+     <style>
+    div{
+    background: white;
+    font-size:12px;
+    }
+    input{
+    font-size:10px;
+    }
+    @-moz-document url-prefix() {
+        div {font-size:10pt;}
+    }
+    .paramcontainer{
+        border-radius: 10px;
+        border: 1px solid #00000026;
+        padding: 3px;
+        margin: 4px;
+        box-shadow: -2px 3px 1px silver;
+    }
+    .hidden{
+        display: none;
+    }
+    .title{
+        font-size:20px;
+        font-with:bold;
+        //font: bold 30px arial, sans-serif;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    .nameparam {
+        font-size:15px;
+        font-weight: bold;
+        //font: bold 18px ;// 'Courier New', Courier, monospace;
+        color: blue; //#000099;
+        margin-top: 10px;
+        margin-left: 15px;
+        clear: left;
+    }
+    .inputfields{
+        display: inline-block;
+        }
+    .recommand {
+        font-style: italic;
+    }
+    .sectiondiv {
+    border-radius: 5px;
+        font-size:18px;
+        font-with:bold;
+        //font: bold 23px;// arial, sans-serif;
+        border-width:7px 0 0 0 ;  
+        border-style:groove;
+	
+	margin-bottom: 15px;
+	margin-top: 10px;
+    }
+    input[type=text]{
+        width: 80px;
+        margin:5px;
+        float: left;
+        
+    }
+    input[type=button].addval{
+        //margin-top: 7px;
+        vertical-align:middle;
+margin-top: -22px;
+/*vertical-align: text-top;
+margin-top: -25px;*/
+        clear:right
+        
+    }
+    @-moz-document url-prefix(){ 
+        input[type=button].addval{
+            margin-top: -30px;
+        }
+    }
+    input[type=checkbox]{
+        width: 18px;
+        height: 18px;
+        margin-left:20px;
+        
+    }
+    #inputfieldspathData input[type=text]{
+        width: 400px;
+        
+    }
+     #inputfieldspathLog input[type=text]{
+        width: 400px;
+        
+    }
+    [tooltip]:before {
+    /* needed - do not touch */
+    content: attr(tooltip);
+    position: absolute;
+    opacity: 0;
+    
+    /* customizable */
+    transition: all 0.35s ease;
+    padding: 10px;
+    color: #333;
+    border-radius: 10px;
+
+    box-shadow: -2px 3px 1px silver;
+    }
+
+    [tooltip]:hover:before {
+        /* needed - do not touch */
+        opacity: 0.9;
+        
+        /* customizable */
+        color: white;
+        font-size:14px;
+        background: blue;
+        margin-top: -50px;
+        margin-left: 5px;    
+    }
+
+    [tooltip]:not([tooltip-persistent]):before {
+        pointer-events: none;
+    }
+
+
+        </style>
+
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="configdoc.json"></script>
+        <title>Gecko GA Configuration Tool</title>
+    </head>
+    <body>
+        <div class="title">Gecko Genetic algorithm Configuration Tool</div><div id="basic" class="title hidden"> Basic</div><div  id="advanced" class="title"> Advanced</div>
+        <div>This form can be used to create a Gecko configuration file for you.</div>
+        <div>You can switch between the basic interface that presents only the main parameters and an advanced mode where all the parameters can be tuned</div>
+        <input type="button" value="Basic/Advanced parameters" onclick="easymode()"></input>
+        <div>For the text fields you can press the "add" button to add multiple values of parameters, or check multiplecheck box. The configuration file generated can be used with MultipleGeckoStart.py. the script will then send a grid of GECKO Genetics algorithms for all the input parameters combinations.</div>
+        <form id="formconf"></form>
+        <script>
+        
+        function easymode(mode){
+            var togglefields =["AlgorithmType","Mutationmode_1kmeronly","mutationRate1","mutationRate2","mutationRate3","TranslocationRate1","TranslocationRate2","TranslocationRate3","scoreMaxTreshold","Method","hiddenNeuron","allResultHistoryBOOL","computeAllOutters"];
+            for (var field in togglefields){
+            console.log(field)
+                sfield=document.getElementById( togglefields[field]+"_cont");
+                
+                sfield.classList.toggle("hidden");
+            }
+            sfield=document.getElementById( "basic");
+                
+                sfield.classList.toggle("hidden");
+                            sfield=document.getElementById( "advanced");
+                
+                sfield.classList.toggle("hidden");
+        
+        }
+        function createformline(confval){
+            var param=doc[confval];
+            //console.log(confval);
+                var paramcontainer=document.createElement("div");
+                paramcontainer.setAttribute("id",confval+"_cont");
+                formdiv.appendChild(paramcontainer)
+                if (param["extDescription"]!=undefined){
+                    paramcontainer.setAttribute("tooltip",confval+" tips : "+ param["extDescription"]);
+                    
+                }
+            divconf=document.createElement("div");
+            
+            
+            
+            if (param["type"]!="section"){
+                paramcontainer.classList.add("paramcontainer");
+                var nameparam=document.createElement("div");
+                nameparam.innerHTML=confval;
+                nameparam.classList.add("nameparam");
+                paramcontainer.appendChild(nameparam);
+            
+                var description=document.createElement("div");
+                description.innerHTML=param["description"];
+               
+                paramcontainer.appendChild(description);
+                if (param["recommand"]!=undefined){
+                    var recommand=document.createElement("div");
+                    
+                    recommand.classList.add("recommand");
+                    recommand.innerHTML=param["recommand"];
+                    paramcontainer.appendChild(recommand);
+                }
+               
+                
+                paramcontainer.appendChild(divconf);
+                var inpufields=document.createElement("div");
+                inpufields.setAttribute("id", "inputfields"+confval);
+                inpufields.classList.add("inputfields");
+                divconf.appendChild(inpufields);
+            }
+            switch(param["type"]) {
+            case "list":
+                //input text field
+
+                
+                addnewinput(confval);
+                //button add
+                var inputxt=document.createElement("input");
+                divconf.appendChild(inputxt);
+                inputxt.setAttribute("type", "button");
+                inputxt.setAttribute("value","Add");
+                inputxt.classList.add("addval");
+                inputxt.onclick =function() {addnewinput(confval)};
+                break;
+            case "checklist":
+                for(var key in param["values"]) {
+                    //console.log(key+"  "+param["values"][key]);
+                    inputBox=document.createElement("input");
+                    
+                    inputBox.setAttribute("type", "checkbox");
+                    inputBox.setAttribute("value", key);
+                    if (param["default"]==key){
+                        inputBox.checked= true;
+                    }else{
+                        inputBox.checked= false;
+                    }
+
+                    inpufields.appendChild(inputBox);
+                    labelBox=document.createElement("span");
+                    labelBox.innerHTML=param["values"][key];
+                    inpufields.appendChild(labelBox);
+                    
+                }
+                break;
+            case "section":
+                    sectiondiv=document.createElement("div");
+                    sectiondiv.classList.add("sectiondiv");
+                    sectiondiv.innerHTML=param["description"]
+                    formdiv.appendChild(sectiondiv);
+                   
+                break;
+            }
+
+            
+        }
+        function addnewinput(idconfval){
+        console.log("addnewinput  "+idconfval);
+            param=doc[idconfval];
+            inpufields = document.getElementById("inputfields"+idconfval);
+            inputxt=document.createElement("input");
+            inpufields.appendChild(inputxt);
+            inputxt.setAttribute("type", "text");
+            inputxt.setAttribute("value", param["default"]);
+            inputxt.setAttribute("pattern",param["pattern"]);
+            
+        
+        
+        }
+        function getvalues(idconfval){
+            txt=""
+            var param=doc[confval];
+            switch(param["type"]) {
+                case "list":
+                    txt+=confval+"="
+                    inputfields = document.getElementById("inputfields"+idconfval);
+                    allinput=inputfields.getElementsByTagName("input")
+                    var i =0
+                    var allvalues=[]
+                    if (param["pattern"]==""|param["pattern"]==undefined){
+                        var pattern= new RegExp("^.*$");
+                    }else{
+                        var pattern= new RegExp("^"+param["pattern"]+"$");
+                        
+                    }
+                    for (var j=0;j<allinput.length;j++){
+
+                        var val=allinput[j].value
+                        if(!isInArray(allvalues,val)){
+                            console.log(pattern)
+                            if(!pattern.test(val)){
+                                return "Error : <<"+idconfval+">> doesn't match with expected pattern ("+param["pattern"]+")";
+                            }else{
+                            
+                                if (val!=""){
+                                    allvalues.push(val);
+                                }
+                            }
+                        }else{
+                            return "Error : <<"+idconfval+">> contain identical values ("+val+")";
+                        }
+                        i++;
+                        
+                   }
+                   txt+=allvalues.join(",");
+                   
+                   break;
+               case "checklist":
+                    txt+=confval+"="
+                    inputfields = document.getElementById("inputfields"+idconfval);
+                    allinput=inputfields.getElementsByTagName("input")
+                    var i =0
+                    var allvalues=[]
+                    for (var j=0;j<allinput.length;j++){
+                        if(allinput[j].checked){
+                            var val=allinput[j].value
+                            allvalues.push(val);
+                            i++;
+                        }
+                   }
+                   txt+=allvalues.join(",");
+                   
+                   break;
+               case "section":
+                    txt+="####"+param["description"]+"####";
+                   break;
+            }
+            return txt;
+                
+        
+        }
+        function isInArray(array, search)
+        {
+            return array.indexOf(search) >= 0;
+        }
+        function submitform(){
+            var txtconf="";
+            var buffertxt="";
+            for(confval in doc) {
+                buffertxt= getvalues(confval)
+                if (/^Error/.test(buffertxt)){
+                    alert(buffertxt);
+                    return "";
+                }
+                txtconf += buffertxt;
+                txtconf +="\n";
+               
+            }
+            console.log(txtconf);
+            download("generatedconf.conf", txtconf);
+            return txtconf;
+        
+        }
+        function download(filename, text) {
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            pom.setAttribute('download', filename);
+
+            if (document.createEvent) {
+                var event = document.createEvent('MouseEvents');
+                event.initEvent('click', true, true);
+                pom.dispatchEvent(event);
+            }
+            else {
+                pom.click();
+            }
+        }
+        
+        formdiv = document.getElementById("formconf");
+        idconf=0
+        for(confval in doc) {
+            createformline(confval);
+            idconf++;
+        }
+
+        var submit=document.createElement("input");
+        formdiv.appendChild(submit);
+        submit.setAttribute("type", "button");
+        submit.setAttribute("value","Download generated file");
+        submit.onclick =function() {submitform()};
+        
+        
+        formdiv.appendChild(submit);
+        </script>
+
+    </body>
+</html>
