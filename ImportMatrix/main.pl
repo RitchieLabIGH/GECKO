@@ -4,7 +4,7 @@ use strict;
 
 
 ###########################################################
-#
+# main script for dealing with fastq files to create matrix
 #
 #
 ###########################################################
@@ -18,6 +18,7 @@ $parameters{'outdir'} = "./results";
 $parameters{'singleEnd'} = "";
 $parameters{'resume'} = "";
 $parameters{'bam'} = 0;
+$parameters{'kmersize'} = 30;
 
 
 if(scalar(@ARGV)==0){
@@ -62,12 +63,17 @@ while( $p<scalar(@ARGV) ){
     }
 
     if($ARGV[$p] eq '--singleEnd'){
-        $parameters{'singleEnd'} = $ARGV[$p];
+        $parameters{'singleEnd'} = '--singleEnd';
     }
 
     if($ARGV[$p] eq '--groupconfig'){
         $p++;
         $parameters{'groupconfig'} = $ARGV[$p];
+    }
+
+	if($ARGV[$p] eq '--kmersize'){
+        $p++;
+        $parameters{'kmersize'} = $ARGV[$p];
     }
 
     if($ARGV[$p] eq '--matrix'){
@@ -93,16 +99,16 @@ while( $p<scalar(@ARGV) ){
 #### decomposition
 if($parameters{'function'} eq "decomposition"){
     if($parameters{'bam'}==0){
-        my $command = "./nextflow run 01_decomposition.nf --reads ".$parameters{'reads'}." --outdir \'".$parameters{'outdir'}."\'";
-        print $command,"\n";
+        my $command = "./nextflow run 01_decomposition.nf --reads ".$parameters{'reads'}." --outdir \'".$parameters{'outdir'}."\' --kmersize ".$parameters{'kmersize'};
         $command.=" ".$parameters{'notrim'}." ".$parameters{'saveTrimmed'}." ".$parameters{'singleEnd'}." ".$parameters{'resume'};
+        print $command,"\n";
         system($command) == 0
             or die "system failed: $?";
     }
     else{
-        my $command = "./nextflow run 01_decomposition_bam.nf --reads ".$parameters{'reads'}." --outdir \'".$parameters{'outdir'}."\'";
-        print $command,"\n";
+        my $command = "./nextflow run 01_decomposition_bam.nf --reads ".$parameters{'reads'}." --outdir \'".$parameters{'outdir'}."\' --kmersize ".$parameters{'kmersize'};
         $command.=" ".$parameters{'notrim'}." ".$parameters{'saveTrimmed'}." ".$parameters{'resume'};
+        print $command,"\n";
         system($command) == 0
             or die "system failed: $?";
     }

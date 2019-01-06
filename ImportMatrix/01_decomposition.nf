@@ -78,7 +78,7 @@ Channel
 
 
 softPath = params.softPath
-
+kmersize = params.kmersize
 
 
 /*
@@ -168,7 +168,7 @@ process jellyfish {
     script:
     prefix = reads[0].toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
     """
-    jellyfish count -C -m 30 -p 256 --disk -t ${task.cpus} -c 64 -s 500000000 -o ${prefix}.ojf $reads
+    jellyfish count -C -m $kmersize -p 256 --disk -t ${task.cpus} -c 64 -s 500000000 -o ${prefix}.ojf $reads
     """
 }
 
