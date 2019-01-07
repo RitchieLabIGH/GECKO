@@ -99,14 +99,14 @@ while( $p<scalar(@ARGV) ){
 #### decomposition
 if($parameters{'function'} eq "decomposition"){
     if($parameters{'bam'}==0){
-        my $command = "./nextflow run 01_decomposition.nf --reads ".$parameters{'reads'}." --outdir \'".$parameters{'outdir'}."\' --kmersize ".$parameters{'kmersize'};
+        my $command = "./nextflow run 01_decomposition.nf --reads '".$parameters{'reads'}."' --outdir \'".$parameters{'outdir'}."\' --kmersize ".$parameters{'kmersize'};
         $command.=" ".$parameters{'notrim'}." ".$parameters{'saveTrimmed'}." ".$parameters{'singleEnd'}." ".$parameters{'resume'};
         print $command,"\n";
         system($command) == 0
             or die "system failed: $?";
     }
     else{
-        my $command = "./nextflow run 01_decomposition_bam.nf --reads ".$parameters{'reads'}." --outdir \'".$parameters{'outdir'}."\' --kmersize ".$parameters{'kmersize'};
+        my $command = "./nextflow run 01_decomposition_bam.nf --reads '".$parameters{'reads'}."' --outdir \'".$parameters{'outdir'}."\' --kmersize ".$parameters{'kmersize'};
         $command.=" ".$parameters{'notrim'}." ".$parameters{'saveTrimmed'}." ".$parameters{'resume'};
         print $command,"\n";
         system($command) == 0
