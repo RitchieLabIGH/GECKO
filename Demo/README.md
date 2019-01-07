@@ -84,4 +84,36 @@ And get the data to real counts:
 $ ./main.pl real --matrixDiscrete demo_import/filtering/matrix/FILTEREDmatrix.matrix --matrixRaw demo_import/rawimport/matrix/RAWmatrix.matrix --outdir demo_import/
 ```
 
+The final matrix is located in demo_import/filtering/final, and called FILTEREDmatrix_RealCounts.matrix. It is in ASCII format.
+
+### To binary
+
+The genetic algorithm takes as input the file that has been just generated. In this case the entire matrix will be loaded in memory that could be a bad idea for big matrix.
+
+You can transform this matrix into binary format to overcome this issue. 
+
+To do this, you have to go to the genetic algorithm part: 
+
+```
+$ cd ../Gecko
+```
+
+Then go to the utility section and compile the sources: 
+```
+$ cd algoGen/Producteurv2/utils
+$ sh compile.sh
+```
+
+2 binaries are then created : transformIntoBinary to transform the text matrix into binary matrix, and indexBinary that takes 
+as input a binary file to split it, that can increase the performance for very large matrix.
+
+The demo matrix is so small that you can use directly the matrix as input.
+
+To transform into binary, use transformIntoBinary : 
+```
+$ ./transformIntoBinary ../../../../ImportMatrix/demo_import/filtering/final/ FILTEREDmatrix_RealCounts.matrix ../../../../ImportMatrix/demo_import/filtering/final/ FILTEREDmatrix_RealCounts.bin
+```
+
+Now you have also the binary matrix  FILTEREDmatrix_RealCounts.bin that can be used as input for the genetic algorithm.
+
 
