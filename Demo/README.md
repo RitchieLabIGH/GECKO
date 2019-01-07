@@ -116,4 +116,15 @@ $ ./transformIntoBinary ../../../../ImportMatrix/demo_import/filtering/final/FIL
 
 Now you have also the binary matrix  FILTEREDmatrix_RealCounts.bin that can be used as input for the genetic algorithm.
 
+If you want to split this file to enroll multi-core access on the file, you can use the indexBinary executable : 
+```
+$ mkdir ../../../../ImportMatrix/demo_import/filtering/final/CutMatrix/
+$ ./indexBinary ../../../../ImportMatrix/demo_import/filtering/final/FILTEREDmatrix_RealCounts.bin ../../../../ImportMatrix/demo_import/filtering/final/CutMatrix/example.bin 1000
+```
+The input matrix is divided here in 1000 kmers files, and the input file for the genetic algorithm would be /Absolutepath/CutMatrix/example.bin
+
+We advise a number of 1 million of kmers per file.
+
+You are now ready to execute the geénetic algorithm.
+
 
