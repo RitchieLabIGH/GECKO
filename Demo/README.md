@@ -125,6 +125,6 @@ The input matrix is divided here in 1000 kmers files, and the input file for the
 
 We advise a number of 1 million of kmers per file.
 
-You are now ready to execute the geénetic algorithm.
+You are now ready to execute the genetic algorithm.
 
 
