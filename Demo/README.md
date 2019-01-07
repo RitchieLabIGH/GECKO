@@ -1,0 +1,87 @@
+# Example : How to use GECKO
+
+Here is an example of how to use GECKO, from raw FASTQ files to final analysis by running the genetic algorithm. 
+This example is based on a subset of the microRNA data published by S. Juzenas & al [1].
+
+
+
+## Data preparation
+
+### Data download
+
+Inside the demo folder are located several files. createdataset.sh is a script to download 90 of the fastq files of the project 
+and run the entire process. For this you need to have sra toolkit to be installed. Just type :
+
+```
+$ sh createdataset.sh
+```
+You should have now 90 fastq files that represent 87Go of data. These data need to be cleaned.
+
+
+### Gecko installation
+
+During the data download you will have the time to install GECKO. Just clone the repository and go inside a matrix preparation 
+part:
+
+```
+$ git clone https://github.com/RitchieLabIGH/GECKO.git
+$ cd GECKO/ImportMatrix
+```
+
+You need to have Java8/1.8, libboost, g++ Jellyfish 2, samtools, cutadapt and fastqc installed in your environment. Then install Nextflow that will deal with the workflow:
+```
+$ curl -s https://get.nextflow.io | bash 
+```
+
+And compile the binaries:
+```
+$ cd bin/src
+$ sh compile.sh
+```
+
+We assume that you are running the pipeline with a SLURM job manager. Otherwise please refer to Job manager section in the 
+Readme.
+
+If you have no job manager available, just remove the job manager option (executor option) in the nextflow.config file.
+
+Inside the nexflow config file please modifiy the path parameter softPath to put the corresponding absolute path from your 
+environment to point to the path of the binaries.
+
+
+### From FASTQ to the matrix 
+When the download has finished, you will have to clean the data and decompose the fastq files into kmers:
+Go to the matrix preparation main directory:
+
+```
+$ cd ../..
+```
+And launch the decomposition process:
+```
+$ perl main.pl decomposition --singleEnd --outdir demo_import --reads '../../*fastq' --kmersize 20
+$ rm work/* -rf
+```
+
+It will remove the Illumina adaptors and get the kmers of 20 nucleotides. The results will be copied into demo_import directory.
+
+The rm command is to eliminate all the temporary files that have been created during the process.
+
+Now edit the file microRNA.conf to modify the paths of the first column in function of your environment (change opt path). When finished, you can finish to import the data. First the importation: 
+```
+$ perl main.pl importation --groupconfig ../../microRNA_demo.conf --outdir demo_import
+```
+
+Then to filter you need to discretize the data:
+```
+$ perl main.pl discretization --matrix demo_import/rawimport/matrix/RAWmatrix.matrix –outdir demo_import
+```
+And filter the data:
+```
+$ ./main.pl filter --matrix demo_import/discretization/matrix/DISCRETmatrix.matrix  --outdir demo_import
+```
+
+And get the data to real counts:
+```
+$ ./main.pl real --matrixDiscrete demo_import/filtering/matrix/FILTEREDmatrix.matrix --matrixRaw demo_import/rawimport/matrix/RAWmatrix.matrix --outdir demo_import/
+```
+
+
