@@ -111,7 +111,7 @@ The demo matrix is so small that you can use directly the matrix as input.
 
 To transform into binary, use transformIntoBinary : 
 ```
-$ ./transformIntoBinary ../../../../ImportMatrix/demo_import/filtering/final/ FILTEREDmatrix_RealCounts.matrix ../../../../ImportMatrix/demo_import/filtering/final/ FILTEREDmatrix_RealCounts.bin
+$ ./transformIntoBinary ../../../../ImportMatrix/demo_import/filtering/final/FILTEREDmatrix_RealCounts.matrix ../../../../ImportMatrix/demo_import/filtering/final/FILTEREDmatrix_RealCounts.bin
 ```
 
 Now you have also the binary matrix  FILTEREDmatrix_RealCounts.bin that can be used as input for the genetic algorithm.
