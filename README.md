@@ -28,7 +28,7 @@ Java 8/1.8, libboost, g++, Jellyfish 2, samtools and fastqc are needed to run th
 you have to download by using git:
 
 ```bash
-$ git clone https://gitlab.igh.cnrs.fr/aubin.thomas/importGECKO.git
+$ git clone https://github.com/RitchieLabIGH/GECKO.git
 ```
 A new directory called ImportGECKO will be created. You will find in it:
 
@@ -44,7 +44,7 @@ A new directory called ImportGECKO will be created. You will find in it:
 You need to install [Nextflow](https://www.nextflow.io/). For this step you will need Java 8 or 1.8 installed. You have to go in the directory and install Nextflow by typing the commands:
 
 ```bash
-$ cd importGECKO
+$ cd GECKO/ImportMatrix
 $ curl -s https://get.nextflow.io | bash 
 ```
 
@@ -240,7 +240,8 @@ Multiple values of parameter are accepted if you use <b>multipleGeckostart.py</b
 
 ## Compilation ##
 ```bash
-$ cd Producteurv2;make;cd ..
+$ cd GECKO/Gecko/algoGen/Producteurv2
+$ make;cd ..
 
 ```
 ## Run ##
