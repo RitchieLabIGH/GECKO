@@ -69,6 +69,8 @@ if testarg == "heat":
     test2_plotter = True
     test3_sampledatamat = True
     test4_smainfold = True
+if testarg == "last":
+    1
 
 listOfSampleList = ""
 
@@ -125,6 +127,7 @@ commandclient = "cp  -R Highcharts-6.0.4 "+pathDirectory+"/Highcharts-6.0.4"
 os.system(commandclient)
 
 numbersufold=np.array([],dtype="int")
+
 for fi in listdir:
     commandclient = "python3 plot4folder.py "+fi+" "+nbIndiv+" "+nbmaxkmer+" "+str(nbBasePerKmer)
     print(commandclient, flush=True)
@@ -135,6 +138,11 @@ for fi in listdir:
     m=re.search(".*_([0-9]+)/*$",fi)
     numbersufold=np.append(numbersufold, int(m.group(1)))
 
+if testarg == "last":
+    lastid=np.argmax(numbersufold)
+    numbersufold=np.array([numbersufold[lastid]])
+
+
 # number of view winner graph
 test = gaplt.GeneticAlgPlotter()
 DirectoryJson = pathDirectory + "/0_" + str(np.max(numbersufold))
@@ -144,6 +152,7 @@ test.addDirectoryJson(DirectoryJson+"/", "")
 test.savefigdir(pathDirectory+"/")
 test.nbBasePerKmer=nbBasePerKmer
 test.kmerOccurencesInWinners()
+
 #
 # COPY HTML page
 i=0
@@ -256,6 +265,7 @@ if test4_smainfold == False :
             mainfold.mainfold_organism(fi + "fig/BestIndiv"+nbIndiv+".csvforextractkm.count_SampleMat.csv",  n_neighbors, int(nbIndiv)* nbkmer ,pathDirectory,nbkmer)
 
         except OSError as e:
+            print(e)
             print("mainfold to " + fi + "fig/BestIndiv"+nbIndiv+".csvforextractkm.count_SampleMat.csv failed", flush=True)
 
     print("fig/countkmerwin0.8.txt_SampleMat.csv", flush=True)
@@ -319,8 +329,10 @@ if test4_smainfold == False :
         except OSError as e:
             print( "mainfold to "+fi + "fig/countkmer_tresholdwin0.txt_SampleMat.csv failed", flush=True)
 
-
-
+import MLevaluation as MLev
+for fi in listdir:
+    for idindiv in range(int(nbIndiv)):
+        MLev.MLevaluation.generateNlzReportClassifierQuality( os.path.join(fi, "fig/BestIndiv10.csvforextractkm.count_SampleMat.csv"), extendsavepath="/indiv"+str(idindiv+1)+"/", nrot=0, hideNeurons=int(nbkmer/2), kmByIndiv=nbkmer, idindiv=idindiv, eliminate=False,classfierType=classfierType)
 
 filestruct=pd.DataFrame()
 #historymain fold result compil

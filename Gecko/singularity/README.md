@@ -11,12 +11,14 @@ The only dependency is singularity. Super user permission are required just to b
 First build the base image:
  
 ```bash
-rm -f ./GECKO_base_img && sudo singularity build GECKO_base_img ./singularity_base.recipe
+rm -f ./GECKO_base_img && sudo singularity build  --writable GECKO_base_img ./singularity_base.recipe
 ```
 Then you can use it to build the operational image:
 
 ```bash
-rm -f ./GECKO && sudo singularity build GECKO ./singularity.recipe
+rm -f ./GECKO && sudo singularity build  --writable GECKO ./singularity.recipe
+sudo chmod ugo+rw GECKO
+
 ```
 
 ## Use the image
@@ -30,7 +32,7 @@ singularity shell GECKO
 or execute a command. All the content of algoGen is in /GECKO/ and the program are already built for the use.
 
 ```bash
-singularity exec GECKO mpirun -np 3 python3 /GECKO/clientNNc++.py uid gecko.conf  
+singularity exec -w GECKO mpirun -np 3 python3 /GECKO/clientNNc++.py uid gecko.conf  
 ```
 
 By default, the folder where you launch the singularity image is visible by the image and also the classical path ( /home/ /tmp/ ... ).

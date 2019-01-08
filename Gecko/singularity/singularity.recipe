@@ -12,7 +12,8 @@ From: ./GECKO_base_img
 
 
 %post
-	
+	pip3 install  mpi4py pandas matplotlib scikit-learn mpi4py seaborn ipython
+	chmod -R ugo+w /GECKO
 	cd /GECKO/Producteurv2/utils
 	chmod +x ./compile.sh
 	./compile.sh
