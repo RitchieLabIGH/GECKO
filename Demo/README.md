@@ -132,15 +132,15 @@ You are now ready to execute the genetic algorithm.
 ### Install genetic algorithm
 Before the first use or after update, you need to compile the Genetic algorithm :
 ```
-$ cd .. ( you sould be in Gecko/algoGen/Producteurv2 after this command)
+$ cd .. ( you should be in Gecko/algoGen/Producteurv2 after this command)
 $ make clean ( after update )
 $ make
 $ cd ..
 ```
-### Execute genetic algotritm
-Then your are back in main directory of the genetic algorithm (Gecko/algoGen/), you can start it by using the example of configuration file in Demo/configGA_microRNA_demo.conf all the parameter for the genetic algorithm are define there the path to the data , save path, and number of iterations for exemple  can be modify to fit your case:
-
+### Execute genetic algorithm
+Then you are back in the main directory of the genetic algorithm (Gecko/algoGen/), you can start it by using the example of configuration file in Demo/configGA_microRNA_demo.conf, all the parameters for the genetic algorithm are defined there, the path to the data, save path, and number of iterations for exemple  can be modified to fit your case :
+```
 $ sbatch multipleGeckoStart.py ../../Demo/configGA_microRNA_demo.conf 20
-
-Then you can access to a result report by default in ../../Demo/DemoGeneticAlgResultDir/evolution.html in your web browser and navigate to explore the beaviour of the GA and inspect the best classifiers.
+```
+Then you can access the result report by default in ../../Demo/DemoGeneticAlgResultDir/evolution.html in your web browser and navigate to explore the behaviour of the GA and inspect the best classifiers.
 
