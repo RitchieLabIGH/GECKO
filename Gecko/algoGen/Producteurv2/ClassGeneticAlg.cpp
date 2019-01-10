@@ -782,7 +782,7 @@ public:
         uint64_t kreal = 0;
 
         //find the most variating kmers and output the sub matrix for pre-analysis
-        _self_population.MakeMatrixFromMostVariantKmers(_self_pathLog[0] + "Dir/mostVariantKmers.matrix",_self_pathLog[0] + "Dir/lessVariantKmers.matrix",1000);
+        //_self_population.MakeMatrixFromMostVariantKmers(_self_pathLog[0] + "Dir/mostVariantKmers.matrix",_self_pathLog[0] + "Dir/lessVariantKmers.matrix",1000);
 
         //for _self_NGeneration generation
         for (uint64_t ntry = _self_NGeneration; ntry > 0; ntry--) {
