@@ -93,7 +93,7 @@ process toMLformat {
     file mreal from outpumatrix
 
     output:
-    file '*.matrix' into outpumatrix
+    file '*.matrix' into outpumatrix2
 
 
     script:
