@@ -83,21 +83,21 @@ process toreal {
 }
 
 
-process toMLformat {
-    publishDir "${params.outdir}/filtering", mode: 'copy',
-        saveAs: {filename ->
-            if (filename.indexOf(".matrix") > 0) "final/$filename"
-        }
-    
-    input:
-    file mreal from outpumatrix
-
-    output:
-    file '*.matrix' into outpumatrix2
-
-
-    script:
-    """
-    $softPath/transformIntoML $mreal > FILTEREDmatrix_RealCounts_MLformat.matrix
-    """
-}
+//process toMLformat {
+//    publishDir "${params.outdir}/filtering", mode: 'copy',
+//        saveAs: {filename ->
+//            if (filename.indexOf(".matrix") > 0) "final/$filename"
+//        }
+//    
+//    input:
+//    file mreal from outpumatrix
+//
+//    output:
+//    file '*.matrix' into outpumatrix2
+//
+//
+//    script:
+//    """
+//    $softPath/transformIntoML $mreal > FILTEREDmatrix_RealCounts_MLformat.matrix
+//    """
+//}
