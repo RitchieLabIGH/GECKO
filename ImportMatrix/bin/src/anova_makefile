@@ -1,0 +1,121 @@
+
+
+C_SRCS += \
+./cephes/bdtr.c \
+./cephes/btdtr.c \
+./cephes/chbevl.c \
+./cephes/chdtr.c \
+./cephes/const.c \
+./cephes/drand.c \
+./cephes/expx2.c \
+./cephes/fdtr.c \
+./cephes/gamma.c \
+./cephes/gdtr.c \
+./cephes/igam.c \
+./cephes/igami.c \
+./cephes/incbet.c \
+./cephes/incbi.c \
+./cephes/isnan.c \
+./cephes/kolmogorov.c \
+./cephes/mtherr.c \
+./cephes/nbdtr.c \
+./cephes/ndtr.c \
+./cephes/ndtri.c \
+./cephes/pdtr.c \
+./cephes/polevl.c \
+./cephes/stdtr.c \
+./cephes/unity.c 
+
+OBJS += \
+./cephes/bdtr.o \
+./cephes/btdtr.o \
+./cephes/chbevl.o \
+./cephes/chdtr.o \
+./cephes/const.o \
+./cephes/drand.o \
+./cephes/expx2.o \
+./cephes/fdtr.o \
+./cephes/gamma.o \
+./cephes/gdtr.o \
+./cephes/igam.o \
+./cephes/igami.o \
+./cephes/incbet.o \
+./cephes/incbi.o \
+./cephes/isnan.o \
+./cephes/kolmogorov.o \
+./cephes/mtherr.o \
+./cephes/nbdtr.o \
+./cephes/ndtr.o \
+./cephes/ndtri.o \
+./cephes/pdtr.o \
+./cephes/polevl.o \
+./cephes/stdtr.o \
+./cephes/unity.o 
+
+C_DEPS += \
+./cephes/bdtr.d \
+./cephes/btdtr.d \
+./cephes/chbevl.d \
+./cephes/chdtr.d \
+./cephes/const.d \
+./cephes/drand.d \
+./cephes/expx2.d \
+./cephes/fdtr.d \
+./cephes/gamma.d \
+./cephes/gdtr.d \
+./cephes/igam.d \
+./cephes/igami.d \
+./cephes/incbet.d \
+./cephes/incbi.d \
+./cephes/isnan.d \
+./cephes/kolmogorov.d \
+./cephes/mtherr.d \
+./cephes/nbdtr.d \
+./cephes/ndtr.d \
+./cephes/ndtri.d \
+./cephes/pdtr.d \
+./cephes/polevl.d \
+./cephes/stdtr.d \
+./cephes/unity.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+./cephes/%.o: ./cephes/%.c
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C Compiler'
+	gcc -std=c11 -O3 -Wall -fopenmp -c -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+
+
+# Add inputs and outputs from these tool invocations to the build variables 
+CPP_SRCS += \
+./anovaFilter.cpp 
+
+OBJS += \
+./anovaFilter.o 
+
+CPP_DEPS += \
+./anovaFilter.d 
+
+
+# Each subdirectory must supply rules for building sources it contributes
+./%.o: ./%.cpp
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C++ Compiler'
+	g++ -std=c++14 -O3 -fopenmp -c -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+
+
+
+all:  $(OBJS) $(USER_OBJS)
+	@echo 'Building target: $@'
+	@echo 'Invoking: GCC C++ Linker'
+	g++ -fopenmp -o "anovaFilter" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Finished building target: $@'
+	@echo ' '
+
+	

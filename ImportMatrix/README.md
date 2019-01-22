@@ -117,7 +117,6 @@ From the jellyfish text files, a configuration file has to be created. It's to d
 
 Note : the configuration file can point to several decomposition directories.
 
-
 ### Importation
 
 The second step is the importation of raw data. All the k-mer decompositions that figure in a single configuration file are merged inside a single matrix. The counts of the k-mers are normalized by the total number of millions of k-mer that are found in the corresponding sample. To launch the importation process:
@@ -138,8 +137,21 @@ The program create a subdirectory called rawimport inside the output folder that
 - rawimport/conf that contains the splitted configuration files
 - rawimport/matrix that contains at the end the result matrix : RAWmatrix.matrix
 
+## Anova Filter
+A quick method to select k-mers is through an ANOVA F-test, removing the kmers with a p-value higher than a given threshold. This method may be used alone or before a Mutual Information filter. 
+A drawback of this method is that you may loose some informative combination of kmers, expecially if you use a stringent threshold (Skip to "Mutual Information Filter" below below to avoid those loose)
+To launch this process:
+
+```bash
+./main.pl anova --matrix <path to the raw matrix> --threshold [float] --outdir <path to output folder>
+
+```
+
+We suggest a threshold of 0.05.
+The output matrix will be in /path/to/outdir/filtered.matrix
 
 
+## Mutual Information Filter
 ### Discretization
 
 Then you need to discretize the matrix. An AMEVA discretization is performed on the matrix obtained previously. the output is located inside a subdirectory called discretization inside the output folder that is given in parameters.

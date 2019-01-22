@@ -43,6 +43,11 @@ while( $p<scalar(@ARGV) ){
     if($ARGV[$p] eq '-B'){
         $parameters{'bam'} = 1;
     }
+    
+    if($ARGV[$p] eq '--threshold'){
+        $p++;
+        $parameters{'threshold'} = $ARGV[$p];
+    }    
 
     if($ARGV[$p] eq '--outdir'){
         $p++;
@@ -202,10 +207,17 @@ if($parameters{'function'} eq "importation"){
 
 
 }
+############################################################
+#### Anova Filter
+if($parameters{'function'} eq "anova"){
+    if(exists $parameters{'matrix'}){
+        # initial importation
+        my $command = "./nextflow run 04_anova.nf --matrix \'".$parameters{'matrix'}."\' --outdir \'".$parameters{'outdir'}."\'"." --threshold \'".$parameters{'threshold'}."\'"." ".$parameters{'resume'};
+        system($command) == 0
+            or die "system failed: $?";
 
-
-
-
+    }
+}
 
 ############################################################
 #### Discretisation
