@@ -139,7 +139,7 @@ The program create a subdirectory called rawimport inside the output folder that
 
 ## Anova Filter
 A quick method to select k-mers is through an ANOVA F-test, removing the kmers with a p-value higher than a given threshold. This method may be used alone or before a Mutual Information filter. 
-A drawback of this method is that you may loose some informative combination of kmers, expecially if you use a stringent threshold (Skip to "Mutual Information Filter" below below to avoid those loose)
+A drawback of this method is that you may lose some informative combination of kmers, expecially if you use a stringent threshold (Skip to "Mutual Information Filter" below below to avoid this lose)
 To launch this process:
 
 ```bash
