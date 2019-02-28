@@ -137,19 +137,6 @@ The program create a subdirectory called rawimport inside the output folder that
 - rawimport/conf that contains the splitted configuration files
 - rawimport/matrix that contains at the end the result matrix : RAWmatrix.matrix
 
-## Anova Filter
-A quick method to select k-mers is through an ANOVA F-test, removing the kmers with a p-value higher than a given threshold. This method may be used alone or before a Mutual Information filter. 
-A drawback of this method is that you may lose some informative combination of kmers, expecially if you use a stringent threshold (Skip to "Mutual Information Filter" below below to avoid this loss)
-To launch this process:
-
-```bash
-./main.pl anova --matrix <path to the raw matrix> --threshold [float] --outdir <path to output folder>
-
-```
-
-We suggest a threshold of 0.05.
-The output matrix will be in /path/to/outdir/filtered.matrix
-
 
 ## Mutual Information Filter
 ### Discretization
@@ -165,7 +152,10 @@ The given command launches a discretization process :
 
 
 ### Filtering
-Finally you need to filter and then transform the resulting matrix (that is discretized) into a matrix with real numbers. The filtering process will first remove k-mers that have less than 1/3*(number of samples inside the smallest group) of informations and then remove the k-mers that have the same information through the groups. This is the most time consuming process. That's why the first step is to divide the matrix into 1-millions-reads matrix and treat them separately.
+Finally you need to filter and then transform the resulting matrix (that is discretized) into a matrix with real numbers. 
+The filtering process will first remove k-mers that have less than 10% of the number of samples inside the smallest group of informations and then remove the k-mers that have the same information through the groups. 
+It's a massive process that aims to remove the kmers that have the same information with no regard to the groups. 
+The complexity of this process is O². That's why the first step is to divide the matrix into 1-millions-reads matrix and treat them separately.
 
 
 
@@ -173,6 +163,25 @@ Finally you need to filter and then transform the resulting matrix (that is disc
 ./main.pl filter --matrix  <path to discrete matrix> --outdir <path to output folder>
 ./main.pl real --matrixDiscrete <path to discrete matrix> --matrixRaw <path to RAW matrix> --outdir <path to output folder>
 ```
+
+
+## Anova Filter
+An optional method to select k-mers is through an ANOVA F-test, removing the kmers with a p-value higher than a given threshold. 
+
+* You may loose some informative combination of kmers
+* You will accumulate kmers from every features
+
+To launch this process:
+
+```bash
+./main.pl anova --matrix <path to the raw matrix> --threshold [float] --outdir <path to output folder>
+
+```
+
+We suggest a threshold of 0.05.
+The output matrix will be in /path/to/outdir/filtered.matrix
+ 
+
 
 
 
