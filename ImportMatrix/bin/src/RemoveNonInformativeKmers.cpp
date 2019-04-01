@@ -207,8 +207,8 @@ void RemoveNonInformativeKmers(string pInpFile, string pResFile, uint64_t distMa
 				/*int lengthDataVector = data[0].size();
 				int lengthDataStep = floor(lengthDataVector / 4);
 				bool state_recur = false;
-				for (int klen_c = lengthDataStep; klen_c <= lengthDataVector; klen_c += lengthDataStep) {
-					if (ED.SymmetricUncertaintyWithIntLimited(data[i], data[j], klen_c) < pMIthreshold) {
+				for (int klen_c = 0; klen_c < 4; klen_c += 1) {
+					if (ED.SymmetricUncertaintyWithIntLimited(data[i], data[j], lengthDataStep, klen_c*lengthDataStep, false) < pMIthreshold) {
 						state_recur = true;
 						klen_c = lengthDataVector + 1;
 					}

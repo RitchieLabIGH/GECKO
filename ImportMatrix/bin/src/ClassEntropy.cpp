@@ -537,7 +537,7 @@ public:
 
 
 
-	long double SymmetricUncertaintyWithIntLimited(vector<int> pvectorA, vector<int> pvectorB, int plimitation, bool pdebug) {
+	long double SymmetricUncertaintyWithIntLimited(vector<int> pvectorA, vector<int> pvectorB, int plimitation, int poffset, bool pdebug=false) {
 		const short mlength = 25; // number of state max in the vector for 100 : the differents states have to be a string of number between 0 and 99
 		long double result = 0;
 		long double HA = 0;
@@ -551,8 +551,8 @@ public:
 		vector<long double> mapAB(mlength*mlength + 2 * mlength, 0);
 		if (pvectorA.size() != 0) {
 			for (uint64_t i = 0; i < plimitation; i++) {
-				ia = pvectorA[i];
-				ib = pvectorB[i];
+				ia = pvectorA[i + poffset];
+				ib = pvectorB[i + poffset];
 				mapA[ia]++;
 				mapB[ib]++;
 				mapAB[ia + ib * mlength + mlength]++;
