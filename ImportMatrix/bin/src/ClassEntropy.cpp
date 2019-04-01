@@ -535,6 +535,64 @@ public:
 
     }
 
+
+
+	long double SymmetricUncertaintyWithIntLimited(vector<int> pvectorA, vector<int> pvectorB, int plimitation, bool pdebug) {
+		const short mlength = 25; // number of state max in the vector for 100 : the differents states have to be a string of number between 0 and 99
+		long double result = 0;
+		long double HA = 0;
+		long double HB = 0;
+		long double HAB = 0;
+		long double ratioA, ratioB, ratioAB;
+
+		int ia, ib;
+		vector<long double> mapA(mlength, 0);
+		vector<long double> mapB(mlength, 0);
+		vector<long double> mapAB(mlength*mlength + 2 * mlength, 0);
+		if (pvectorA.size() != 0) {
+			for (uint64_t i = 0; i < plimitation; i++) {
+				ia = pvectorA[i];
+				ib = pvectorB[i];
+				mapA[ia]++;
+				mapB[ib]++;
+				mapAB[ia + ib * mlength + mlength]++;
+			}
+
+			for (uint64_t i = 0; i < mlength; i++) {
+				if (mapA[i] != 0) {
+					ratioA = mapA[i] / plimitation;
+					//cerr << "\nmapA[i] = " << mapA[i] << "\tpvectorA.size() = " << pvectorA.size()<<endl;
+					HA -= (ratioA * log2(ratioA));
+					//cerr << "\nHA = " << HA << "\tratio = " << ratioA<<endl;
+				}
+				if (mapB[i] != 0) {
+					ratioB = mapB[i] / plimitation;
+					//cerr << "\nmapB[i] = " << mapB[i] << "\tpvectorB.size() = " << pvectorB.size()<<endl;
+					HB -= (ratioB * log2(ratioB));
+					//cerr << "\nHB = " << HB << "\tratio = " << ratioB<<endl;
+
+				}
+			}
+
+			for (uint64_t i = 0; i < (mlength * mlength) + 2 * mlength; i++) {
+				if (mapAB[i] != 0) {
+					ratioAB = mapAB[i] / plimitation;
+					//cerr << "\nmapAB[i] = " << mapAB[i] << "\tpvectorB.size() = " << pvectorB.size()<<endl;
+					HAB -= (ratioAB * log2(ratioAB));
+					//cerr << "\nHB = " << HB << "\tratio = " << ratioB<<endl;
+				}
+
+			}
+
+			result = 2 * (HA + HB - HAB) / (HA + HB);
+			return result;
+		}
+		else {
+			return 0;
+		}
+
+	}
+
 }; //class1
 
 

@@ -198,12 +198,25 @@ void RemoveNonInformativeKmers(string pInpFile, string pResFile, uint64_t distMa
               dataindic[j] = false;
               kwd++;
             } //if(distHamming<=distMax)
-
-            if(dataindic[j]){
+			else{
                 //on essaie l'information mutuelle
                 if(ED.SymmetricUncertaintyWithInt(data[i], data[j], false)>pMIthreshold){
                     dataindic[j] = false;
                 }
+
+				/*int lengthDataVector = data[0].size();
+				int lengthDataStep = floor(lengthDataVector / 4);
+				bool state_recur = false;
+				for (int klen_c = lengthDataStep; klen_c <= lengthDataVector; klen_c += lengthDataStep) {
+					if (ED.SymmetricUncertaintyWithIntLimited(data[i], data[j], klen_c) < pMIthreshold) {
+						state_recur = true;
+						klen_c = lengthDataVector + 1;
+					}
+				}
+				if (!state_recur) {
+					dataindic[j] = false;
+				}*/
+
             }
             
             
