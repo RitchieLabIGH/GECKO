@@ -85,14 +85,21 @@ void RemoveNonInformativeKmers(string pInpFile, string pResFile, uint64_t distMa
         boost::split(content, line, boost::is_any_of("\t"));
         vector<int> vect_states_c(basis);
         uint64_t apm = 0;
-        dataKmerID.push_back(content[0]);
+        
         for(uint64_t i = 1; i<sizecontent; i++){
           vect_states_c[i-1] = stoi(content[i]);
+		  if (vect_states_c[i - 1] > 0) {
+			  apm += 1;
+		  }
         }
 
-        data.push_back(vect_states_c);
-        dataindic.push_back(true);
-        numKMers++;
+
+		if (apm > distMax) {
+			dataKmerID.push_back(content[0]);
+			data.push_back(vect_states_c);
+			dataindic.push_back(true);
+			numKMers++;
+		}
         
         /**********************************
         //OK a bunch to treat
