@@ -151,7 +151,9 @@ print(DirectoryJson)
 test.addDirectoryJson(DirectoryJson+"/", "")
 test.savefigdir(pathDirectory+"/")
 test.nbBasePerKmer=nbBasePerKmer
-test.kmerOccurencesInWinners()
+if test.nbBasePerKmer>0:
+    test.kmerOccurencesInWinners()
+
 
 #
 # COPY HTML page
@@ -166,10 +168,11 @@ for fi in listdir:
     os.system(commandclient)
     m = re.search(".*/([^/^_]*_)[0-9]+/*$", fi)
     txt = "datajson ={\n"
-    txt +="\"prevlink\":\"../"+m.group(1)+str(numbersufold[i]-1)+"/scratch.html\",\n"
-    txt += "\"nextlink\":\"../" + m.group(1) + str(numbersufold[i] +1) + "/scratch.html\",\n"
-    txt += "\"maxfolder\":\""+str(np.max(numbersufold))+"\",\n"
-    txt += "\"currentnb\":\"" + str(numbersufold[i]) + "\"\n"
+    if testarg != "last":
+        txt +="\"prevlink\":\"../"+m.group(1)+str(numbersufold[i]-1)+"/scratch.html\",\n"
+        txt += "\"nextlink\":\"../" + m.group(1) + str(numbersufold[i] +1) + "/scratch.html\",\n"
+        txt += "\"maxfolder\":\""+str(np.max(numbersufold))+"\",\n"
+        txt += "\"currentnb\":\"" + str(numbersufold[i]) + "\"\n"
     txt += "};\n"
 
     # for i in range(1,len(informations['run'])+1):
@@ -265,7 +268,6 @@ if test4_smainfold == False :
             mainfold.mainfold_organism(fi + "fig/BestIndiv"+nbIndiv+".csvforextractkm.count_SampleMat.csv",  n_neighbors, int(nbIndiv)* nbkmer ,pathDirectory,nbkmer)
 
         except OSError as e:
-            print(e)
             print("mainfold to " + fi + "fig/BestIndiv"+nbIndiv+".csvforextractkm.count_SampleMat.csv failed", flush=True)
 
     print("fig/countkmerwin0.8.txt_SampleMat.csv", flush=True)

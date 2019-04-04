@@ -103,13 +103,19 @@ div{
     .link { cursor: pointer; }
     .highcharts-scatter-series{opacity: 0.75;}
     .highcharts-credits{display:none}
-
+	.highcharts-anchor {
+		text-color: blue;
+		cursor: pointer;
+		text-decoration: underline;
+	}
         </style>
 		<script src="../Highcharts-6.0.4/code/highcharts.js"></script>
         <script src="../Highcharts-6.0.4/code/js/modules/exporting.js"></script>
         <script src="../Highcharts-6.0.4/code/js/modules/export-data.js"></script>
         <script src="../Highcharts-6.0.4/code/js/modules/accessibility.js"></script>
         <script src="../Highcharts-6.0.4/code/js/modules/boost.js"></script>
+        
+
 
 
         <script type="text/javascript" src="datahtml.json"></script>
@@ -140,6 +146,7 @@ div{
         <div class="content">
 
             <div class="winners">
+            
                 <div id="winner1" class="winner winner1"></div>
                 <div id="winner2" class="winner winner2"></div>
                 <div id="winner3" class="winner winner3"></div>
@@ -167,7 +174,7 @@ scatterconf={
         text: mainfoldorga1.title
     },
     subtitle: {
-        text: mainfoldorga1.subtitle
+        text: mainfoldorga1.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv1/testfile.html">(Extended analysis)</a>'
     },
     legend: {
         borderRadius: 5,
@@ -232,46 +239,46 @@ scatterconf={
 
     g.push(Highcharts.chart('winner1', scatterconf));
     scatterconf.title.text= mainfoldorga2.title
-    scatterconf.subtitle.text= mainfoldorga2.subtitle
+    scatterconf.subtitle.text= mainfoldorga2.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv2/testfile.html">(Extended analysis)</a>'
     scatterconf.series = mainfoldorga2.data
     g.push(Highcharts.chart('winner2', scatterconf));
 
     scatterconf.title.text= mainfoldorga3.title
-    scatterconf.subtitle.text= mainfoldorga3.subtitle
+    scatterconf.subtitle.text=  mainfoldorga2.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv3/testfile.html">(Extended analysis)</a>'
     scatterconf.series = mainfoldorga3.data
     g.push(Highcharts.chart('winner3', scatterconf));
 
     scatterconf.title.text= mainfoldorga4.title
-    scatterconf.subtitle.text= mainfoldorga4.subtitle
+    scatterconf.subtitle.text= mainfoldorga4.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv4/testfile.html">(Extended analysis)</a>'
     scatterconf.series = mainfoldorga4.data
     g.push(Highcharts.chart('winner4', scatterconf));
     
         scatterconf.title.text= mainfoldorga5.title
-    scatterconf.subtitle.text= mainfoldorga5.subtitle
+    scatterconf.subtitle.text= mainfoldorga5.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv5/testfile.html">(Extended analysis)</a>'
     scatterconf.series = mainfoldorga5.data
     g.push(Highcharts.chart('winner5', scatterconf));
 
     scatterconf.title.text= mainfoldorga6.title
-    scatterconf.subtitle.text= mainfoldorga6.subtitle
+    scatterconf.subtitle.text= mainfoldorga6.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv6/testfile.html">(Extended analysis)</a>'
     scatterconf.series = mainfoldorga6.data
     g.push(Highcharts.chart('winner6', scatterconf));
         scatterconf.title.text= mainfoldorga7.title
-    scatterconf.subtitle.text= mainfoldorga7.subtitle
+    scatterconf.subtitle.text= mainfoldorga7.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv7/testfile.html">(Extended analysis)</a>'
     scatterconf.series = mainfoldorga7.data
     g.push(Highcharts.chart('winner7', scatterconf));
 
     scatterconf.title.text= mainfoldorga8.title
-    scatterconf.subtitle.text= mainfoldorga8.subtitle
+    scatterconf.subtitle.text= mainfoldorga8.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv8/testfile.html">(Extended analysis)</a>'
     scatterconf.series = mainfoldorga8.data
     g.push(Highcharts.chart('winner8', scatterconf));
     
     scatterconf.title.text= mainfoldorga9.title
-    scatterconf.subtitle.text= mainfoldorga9.subtitle
+    scatterconf.subtitle.text= mainfoldorga9.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv9/testfile.html">(Extended analysis)</a>'
     scatterconf.series = mainfoldorga9.data
     g.push(Highcharts.chart('winner9', scatterconf));
 
     scatterconf.title.text= mainfoldorga10.title
-    scatterconf.subtitle.text= mainfoldorga10.subtitle
+    scatterconf.subtitle.text= mainfoldorga10.subtitle+' <a   href="fig/BestIndiv10.csvforextractkm.count_SampleMat/indiv10/testfile.html">(Extended analysis)</a>'
     scatterconf.series = mainfoldorga10.data
     g.push(Highcharts.chart('winner10', scatterconf));
 

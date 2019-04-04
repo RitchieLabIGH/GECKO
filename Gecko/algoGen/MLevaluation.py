@@ -188,7 +188,7 @@ class MLevaluation:
         print("Train score mean = {}".format(np.mean(res["train_score"])))
         print("Test score mean = {}".format(np.mean(res["test_score"])))
         return [np.mean(res["train_score"]), np.std(res["train_score"]), np.mean(res["test_score"]),
-                              np.mean(res["test_score"])]
+                              np.std(res["test_score"])]
 
         #return pd.DataFrame([[np.mean(res["train_score"]),np.std(res["train_score"]),np.mean(res["test_score"]),np.mean(res["test_score"])]],columns=["train_score","std_train_score","test_score","std_test_score"])
     #########################
@@ -241,7 +241,7 @@ class MLevaluation:
                 #print("rotation {}/{} test result = {}".format(i+1,nbrot,scoretest))
                 y_pred = clf.predict(X_test)
                 #self.generate_confusion_matrix(Y_test, y_pred)
-                self.crossval_getnlyzdata( samplename,Y_train, Y_test , y_pred,scoretest,)
+                self.crossval_getnlyzdata( samplename,Y_train, Y_test , y_pred,scoretest)
                 if eliminate:
                     self.crossvalNlyzData.loc[removedSample, "scoreOut"] += scoretest
                 #print("nb sample in A and B train ",(Y_train=="groupA".encode("utf8")).sum(),(Y_train=="groupB".encode("utf8")).sum())
@@ -283,10 +283,10 @@ class MLevaluation:
         ## cross validation sklearn compare
         if eliminate:
             data=  oriData
-        res=model_selection.cross_validate(clf, data, y=self.classname, cv=30,groups=None, scoring=None)
+        res=model_selection.cross_validate(clf, data, y=self.classname, cv=nbrot,groups=None, scoring=None)
         print("cross validation sklearn pre-build")
         print(res)
-        res = model_selection.cross_val_score(clf, data, y=self.classname, cv=30, groups=None, scoring=None)
+        res = model_selection.cross_val_score(clf, data, y=self.classname, cv=nbrot, groups=None, scoring=None)
         print("cross validation sklearn pre-build")
         print(res)
         # #############################################################################
@@ -738,6 +738,7 @@ class MLevaluation:
         if nrot==0:
             nbsamplebyclass=MLevaluator.infoDatasetLoad()
             nrot=int(2*np.min(nbsamplebyclass)/3)
+            print("adaptative nrot = "+str(nrot))
 
         commandclient = "cp sorttable.js " + os.path.join( MLevaluator.savepath,"sorttable.js")
         os.system(commandclient)

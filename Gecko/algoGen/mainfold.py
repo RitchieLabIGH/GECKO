@@ -49,7 +49,7 @@ def mainfold_organism(file_path,n_neighbors=30,maxkmer=1000,outerfilepath="",nbk
     labels = labels[ 1,1:].T
     startkmer=2
     i=1
-    while (startkmer+nbkm-1)<np.min([Y.shape[0],maxkmer]):
+    while (startkmer+nbkm-1)<np.min([Y.shape[0],maxkmer+2]):
         X=Y[startkmer:startkmer+nbkm,1:].T
         mainfold(X,labels,file_path+"_orga_"+str(i), n_neighbors, outerfilepath,i)
         startkmer+=nbkm
@@ -148,8 +148,6 @@ def mainfold(X,labels,file_path, n_neighbors,  outerfilepath="",organ=0):
     print("compute mainfolds : "+file_path + "MainfoldNeig" + str(n_neighbors) + ".txt")
     X=normalize(X, axis=1, copy=False)
 
-#!!!!UnCOMMENT
-   # initial_data_y = labels[1:,0]
     initial_data_y = labels
     num_tmp_data_y = np.zeros(len(initial_data_y))
     cat = np.unique(initial_data_y)
@@ -202,7 +200,7 @@ def mainfold(X,labels,file_path, n_neighbors,  outerfilepath="",organ=0):
         except OSError as err:
             print("OS error: {0}".format(err))
         except ValueError:
-            print("Could not perform"+methods+".")
+            print("Could not perform"+method+".")
         except:
             print("Unexpected error:", sys.exc_info()[0])
 

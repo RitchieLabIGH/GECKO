@@ -118,8 +118,12 @@ def occurenMerge(pathDirectory,nbKmByRun=20,hdinmin=0.8,fileocckmers=""):
     with open(pathDirectory +"/"+ "mergedWinnerkmlis" +str(hdinmin)+"_nbkm"+str(nbKmByRun) + ".fastq", "w") as file:
         print("Write files" +pathDirectory +"/"+str(hdinmin)+"_nbkm"+str(nbKmByRun)+ "mergedWinnerkmlis"   + ".fastq")
         for ii in range(0, listoccmean.shape[0]):
-            print(">win" + str(ii) + "_count" + '{:.3}'.format(listoccmean["nview"].values[ii]) + "\n" +
+            if listoccmean["bestIndices"].values[ii].isdigit():
+                print(">win" + str(ii) + "_count" + '{:.3}'.format(listoccmean["nview"].values[ii]) + "\n" +
                   test.idseq2fasta(int(listoccmean["bestIndices"].values[ii])), file=file)
+            else:
+                print(">win" + str(ii) + "_count" + '{:.3}'.format(listoccmean["nview"].values[ii]) + "\n" +
+                      listoccmean["bestIndices"].values[ii], file=file)
     resultglobal["lenlist"] = listoccmean.shape[0]
     ###########################
     # fig, axes = plt.subplots(2, 2, figsize=(13, 10))
