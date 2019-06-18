@@ -259,7 +259,7 @@ if($parameters{'function'} eq "filter"){
 
 
         # initial importation
-        my $command = "./nextflow run 05_filter.nf --matrix \'".$parameters{'matrix'}."\' --filter $selectedvalue --outdir \'".$parameters{'outdir'}."\'"." ".$parameters{'resume'};
+	my $command = "./nextflow run 05_filter_CutByClass.nf --matrix \'".$parameters{'matrix'}."\' --filter $selectedvalue --outdir \'".$parameters{'outdir'}."\'"." ".$parameters{'resume'};
         system($command) == 0
             or die "system failed: $?";
     }
