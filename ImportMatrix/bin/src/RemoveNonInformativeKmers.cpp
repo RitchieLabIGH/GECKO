@@ -281,7 +281,7 @@ int main(int argc, char** argv){
   cout << ED.SymmetricUncertainty(A,B,false) << endl;
 */
   //RemoveNonInformativeKmers("cancer/smockers/InOUtMatrix_sample100M_discret_AmevaOwn.txt", "cancer/smockers/InOUtMatrix_sample100M_discret_Ameva_OnlyInformative.txt", 18, 0.1, 100000, true);
-  RemoveNonInformativeKmers(argv[1], argv[2], stoi(argv[3]), 0.3, 0.7, 500000, true);
+  RemoveNonInformativeKmers(argv[1], argv[2], stoi(argv[3]), 0.3, 0.7, 100000, true);
 
   return 0;
 }
