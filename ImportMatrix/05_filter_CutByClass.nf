@@ -80,6 +80,7 @@ process filterDivide {
     script:
      	
     """
+    export OMP_NUM_THREADS=${task.cpus}
     $softPath/CutMatrixByClass $matrixcurrent "submatrix" "${params.maxGroupSize}" "${params.maxRows}" "${params.maxFiles}"
     
     """
